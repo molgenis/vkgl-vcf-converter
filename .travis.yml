@@ -1,0 +1,23 @@
+os: linux
+dist: bionic
+language: java
+jdk: openjdk11
+cache:
+  directories:
+    - "$HOME/.m2"
+addons:
+  sonarcloud:
+    organization: molgenis
+    token:
+      secure: apB6zHzeY0/ZatWEiUohwX9A8aRM7JuLxnzuYZqVu/GZ97ZwG9BFEEzTQ44UF3vfPHSzg4IweE/gVO9z29vZqDHhYugwDmCMB8IMzADQTtixRJOzm6PZvOZduVW5ueTAJdEm28q7nLqjNZLLo7tuCKKb/XMhOSubUAh+M02/Tat6cdqbUGQyAb4yMv6oTP8RPsSnyVcaXEOtdevb0uiKl/vVR/B8Dcl1MLigV5aIAtYYcDmO8WvLs9m7Ka+xQTO5gAd9SJ8nI7131OXtIcvOpUQjd93IMI8bTpwrluXJzoTOL3nS0Ajf32pn223Ci28ZzCwEw4tsIwGWkYrk5Z6rqLPMV8qPgXfO0qETrUC9IxFuZGfGPv10wi9mgrvmOP3FdEkboQsw94aCN0JPMGfeP8cDGNYbwn4kylQchRa4gk50KXrfF6uLgK9q+lGYD8gHHSRKis8Ck+AbBCI6R2O1auoxt2mA1KGGzmVXzUOqtpFe/TbjWnHoHnXzftzR+mXC5ozziv6b9DUvKOU4MT+nyzwsMT8nofuzfsgILCms0iDV4RJYscBmSEENs/TA6PV8CuKmVVwv5+u4bJJjBknMZMI6V5UuiEu8I39rcelCfh0LAyNfCfgHdoZE5Mqovc48l0UuNEvkNkN9KIn2JysK0BspvuPdB+iUfQvPcMa78ug=
+script:
+  - mvn clean install sonar:sonar -Pcoverage -Dsonar.projectKey=molgenis_vkgl-vcf-converter
+deploy:
+  provider: releases
+  api_key:
+    secure: BmZHHIgV9ZNfzlWLuHd6LQ96xLGOQXDHvwN+d+QFRsE+OOxvQhEXnkPQwv8uf2uDI480+ANuj24Pi3OnabAFTyx0rjBHhPeGyLRzuJoLVOUAlC3X+0d3pKiPL4UcE0dnI/HfMub5W+hv0nZXC9n7myFQqh/73KwAvcyrY+EnNXd/nHFJesVg86RYOimTnSEVkw1SQXW75QwTfxeplqHzTa0URZRd5w05TidaAsk1l5ZSgEHGawYolA+5EUWd0foM5NuwgzRq+E6YPFpPdrqNlFwWa60Y4Q50V6h4WbN/Mc6OseqkHedGHWeibC9+Q8UsbdMheEayYab30jukwgZ4xK7ll/qj+o8z3fxJuGqOyEGGc3tDvA9op1CQhdYFrrbcUci2lQF/ygBu8SaF0gl5KoBsbZsFWzhimtQRw216LSs8h3QIbUGWfvQnmQ/75lXGNbFgP+y1Z9/kdBrcTSi+Hcf1Vf2SSeDqgnFvAWA+62Z4q8Bxe7WJ6D74Bnho9BZ16RBYIKKQu/yfJ6KtntlPLjEoA5RGO/ViRSNu8eAqUy3GPuSGmmFISwOp5sU/LW/PzLZ0nr3sofuss+vif2Z1mm3vjr9otmZdYdmoyWzSzQoEWTaS9TAB4mYn2VL8MKZ00XPNhkuDhuOmSu24pFUzz1OvWJvij+f3eFHsgRBsND0=
+  file: target/vkgl-vcf-converter.jar
+  prerelease: true
+  on:
+    tags: true
+  edge: true # opt in to dpl v2
