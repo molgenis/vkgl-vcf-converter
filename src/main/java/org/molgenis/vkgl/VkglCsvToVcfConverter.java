@@ -69,20 +69,21 @@ class VkglCsvToVcfConverter {
     String[] headerTokens = lines.get(0);
     if (!Arrays.equals(
         headerTokens,
-        new String[] {
-          "ID",
-          "label",
-          "chromosome",
-          "start",
-          "stop",
-          "ref",
-          "alt",
-          "c_notation",
-          "p_notation",
-          "hgvs",
-          "gene",
-          "classification",
-          "support"
+        new String[]{
+            "ID",
+            "label",
+            "chromosome",
+            "start",
+            "stop",
+            "ref",
+            "alt",
+            "c_notation",
+            "p_notation",
+            "transcript",
+            "hgvs",
+            "gene",
+            "classification",
+            "support"
         })) {
       throw new IOException(inputFile + " header invalid");
     }
@@ -94,8 +95,8 @@ class VkglCsvToVcfConverter {
       String start = tokens[3];
       String ref = tokens[5];
       String alt = tokens[6];
-      String classification = tokens[11];
-      String support = tokens[12];
+      String classification = tokens[12];
+      String support = tokens[13];
       writer.write(chromosome);
       writer.write('\t');
       writer.write(start);
