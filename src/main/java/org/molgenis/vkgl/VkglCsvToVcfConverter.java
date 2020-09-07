@@ -46,8 +46,8 @@ class VkglCsvToVcfConverter {
               + "##contig=<ID=X,length=155270560,assembly=b37>\n"
               + "##contig=<ID=Y,length=59373566,assembly=b37>\n"
               + "##contig=<ID=MT,length=16569,assembly=b37>\n"
-              + "##INFO=<ID=VKGL_CL,Number=1,Type=String,Description=\"Clinical significance: LB (likely benign), VUS (unknown significance), LP (likely pathogenic)\">\n"
-              + "##INFO=<ID=VKGL_NR,Number=1,Type=Integer,Description=\"Number of supporting labs\">\n"
+              + "##INFO=<ID=VKGL_CL,Number=A,Type=String,Description=\"Clinical significance: LB (likely benign), VUS (unknown significance), LP (likely pathogenic)\">\n"
+              + "##INFO=<ID=VKGL_NR,Number=A,Type=Integer,Description=\"Number of supporting labs\">\n"
               + "#CHROM\tPOS\tID\tREF\tALT\tQUAL\tFILTER\tINFO\n");
 
       List<String[]> lines;
