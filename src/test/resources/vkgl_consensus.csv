@@ -1,0 +1,6 @@
+"id","chromosome","start","stop","ref","alt","gene","c_dna","transcript","protein","hgvs","erasmus_link","amc_link","nki_link","umcg_link","lumc_link","vumc_link","radboud_mumc_link","umcu_link","amc","erasmus","lumc","nki","radboud_mumc","umcg","umcu","vumc","consensus_classification","matches","disease","comments","history"
+,"1",123,,"C","T",,,,,,,,,,,,,,,,,,,,,"Benign","Classified by one lab","1",,,
+,"1",124,,"T","C",,,,,,,,,,,,,,,,,,,"Pathogenic","Benign",,"No consensus",2,,,
+,"1",125,,"C","G",,,,,,,,,,,,,,,,,"VUS","VUS",,,,"VUS",2,,,
+,"1",126,,"G","C",,,,,,,,,,,,,,,,"Likely benign","Benign",,,,,"(Likely) benign",1,,,
+,"1",127,,"G","A",,,,,,,,,,,,,,,,"Likely pathogenic","Pathogenic",,,,,"(Likely) pathogenic",1,,,

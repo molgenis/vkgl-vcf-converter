@@ -1,0 +1,36 @@
+##fileformat=VCFv4.2
+##INFO=<ID=MVL,Number=A,Type=String,Description="Clinical significance: LB (likely benign), VUS (unknown significance), LP (likely pathogenic)">
+##MVL_convertCommand=
+##MVL_convertCommand=
+##contig=<ID=1,length=249250621,assembly=human_g1k_v37_phiX.fasta>
+##contig=<ID=2,length=243199373,assembly=human_g1k_v37_phiX.fasta>
+##contig=<ID=3,length=198022430,assembly=human_g1k_v37_phiX.fasta>
+##contig=<ID=4,length=191154276,assembly=human_g1k_v37_phiX.fasta>
+##contig=<ID=5,length=180915260,assembly=human_g1k_v37_phiX.fasta>
+##contig=<ID=6,length=171115067,assembly=human_g1k_v37_phiX.fasta>
+##contig=<ID=7,length=159138663,assembly=human_g1k_v37_phiX.fasta>
+##contig=<ID=8,length=146364022,assembly=human_g1k_v37_phiX.fasta>
+##contig=<ID=9,length=141213431,assembly=human_g1k_v37_phiX.fasta>
+##contig=<ID=10,length=135534747,assembly=human_g1k_v37_phiX.fasta>
+##contig=<ID=11,length=135006516,assembly=human_g1k_v37_phiX.fasta>
+##contig=<ID=12,length=133851895,assembly=human_g1k_v37_phiX.fasta>
+##contig=<ID=13,length=115169878,assembly=human_g1k_v37_phiX.fasta>
+##contig=<ID=14,length=107349540,assembly=human_g1k_v37_phiX.fasta>
+##contig=<ID=15,length=102531392,assembly=human_g1k_v37_phiX.fasta>
+##contig=<ID=16,length=90354753,assembly=human_g1k_v37_phiX.fasta>
+##contig=<ID=17,length=81195210,assembly=human_g1k_v37_phiX.fasta>
+##contig=<ID=18,length=78077248,assembly=human_g1k_v37_phiX.fasta>
+##contig=<ID=19,length=59128983,assembly=human_g1k_v37_phiX.fasta>
+##contig=<ID=20,length=63025520,assembly=human_g1k_v37_phiX.fasta>
+##contig=<ID=21,length=48129895,assembly=human_g1k_v37_phiX.fasta>
+##contig=<ID=22,length=51304566,assembly=human_g1k_v37_phiX.fasta>
+##contig=<ID=X,length=155270560,assembly=human_g1k_v37_phiX.fasta>
+##contig=<ID=Y,length=59373566,assembly=human_g1k_v37_phiX.fasta>
+##contig=<ID=MT,length=16569,assembly=human_g1k_v37_phiX.fasta>
+##reference=file:///apps/data/1000G/phase1/human_g1k_v37_phiX.fasta
+#CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO
+1	9000000	.	A	G	.	.	MVL=LP
+1	9000001	.	A	G	.	.	MVL=VUS
+12	9250000	.	A	G	.	.	MVL=B
+12	9260000	.	A	G	.	.	MVL=P
+X	150000000	.	A	G	.	.	MVL=LB
