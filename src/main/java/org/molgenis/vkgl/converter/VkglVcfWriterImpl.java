@@ -27,8 +27,8 @@ public class VkglVcfWriterImpl implements VkglVcfWriter {
   private static final String CONTIG_LENGTH = "length";
   private static final String CONTIG_ASSEMBLY = "assembly";
   private static final String ASSEMBLY = "b37";
-  private static final String HEADER_MVL_VERSION = "VKGL_convertVersion";
-  private static final String HEADER_MVL_ARGS = "VKGL_convertCommand";
+  private static final String HEADER_VKGL_VERSION = "VKGL_convertVersion";
+  private static final String HEADER_VKGL_ARGS = "VKGL_convertCommand";
   private static final String INFO_VKGL_CL = "VKGL_CL";
   private static final String INFO_VKGL_CL_DESC =
       "Clinical significance: LB (likely benign), VUS (unknown significance), LP (likely pathogenic)";
@@ -179,9 +179,9 @@ public class VkglVcfWriterImpl implements VkglVcfWriter {
     aVcfHeader.addMetaDataLine(new VCFContigHeaderLine(createContigMap("Y", 59373566), idx++));
     aVcfHeader.addMetaDataLine(new VCFContigHeaderLine(createContigMap("MT", 16569), idx));
 
-    aVcfHeader.addMetaDataLine(new VCFHeaderLine(HEADER_MVL_VERSION, appSettings.getVersion()));
+    aVcfHeader.addMetaDataLine(new VCFHeaderLine(HEADER_VKGL_VERSION, appSettings.getVersion()));
     aVcfHeader.addMetaDataLine(
-        new VCFHeaderLine(HEADER_MVL_ARGS, join(" ", appSettings.getArgs())));
+        new VCFHeaderLine(HEADER_VKGL_ARGS, join(" ", appSettings.getArgs())));
 
     aVcfHeader.addMetaDataLine(
         new VCFInfoHeaderLine(
