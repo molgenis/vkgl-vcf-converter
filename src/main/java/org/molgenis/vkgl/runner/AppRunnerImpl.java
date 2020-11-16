@@ -20,7 +20,7 @@ class AppRunnerImpl implements AppRunner {
   }
 
   public void run() {
-    LOGGER.info("converting managed variant list to vcf...");
+    LOGGER.info("converting consensus csv to vcf...");
     vkglVcfWriter.writeHeader();
     vkglVcfWriter.write(vkglCsvReader.read());
     LOGGER.info("done");
