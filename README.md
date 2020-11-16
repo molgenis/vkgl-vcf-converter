@@ -1,13 +1,25 @@
-# vkgl-vcf-converter
-Converts http://molgenis.org/vkgl downloads to VCF (Variant Call Format) files
+[![Build Status](https://travis-ci.org/molgenis/vkgl-vcf-converter.svg?branch=master)](https://travis-ci.org/molgenis/vkgl-vcf-converter)
+[![Quality Status](https://sonarcloud.io/api/project_badges/measure?project=molgenis_vkgl-vcf-converter&metric=alert_status)](https://sonarcloud.io/dashboard?id=molgenis_vkgl-vcf-converter)
+# VKGL consensus to VCF converter
+Command-line application to convert a [VKGL consensus .csv file](https://github.com/molgenis/molgenis-py-consensus) to a VCF file.
+
+## Requirements
+- Java 11
 
 ## Usage
-Navigate to http://molgenis.org/vkgl and download an export file via the Downloads menu.
-
-java -jar vkgl-vcf-converter.jar
-usage: java -jar vkgl-vcf-converter.jar
+```
+usage: java -jar vkgl-vcf-converter.jar -i <arg> [-o <arg>] [-f] [-d]
+ -i,--input <arg>    Input VKGL consensus file (.csv).
+ -o,--output <arg>   Output VCF file (.vcf or .vcf.gz).
  -f,--force          Override the output file if it already exists.
- -h,--help           Show help message.
- -i,--input <arg>    Input VKGL export (.csv).
- -o,--output <arg>   Output VKGL export (.vcf).
- -v,--verbose        Print debug information.
+ -d,--debug          Enable debug mode (additional logging).
+
+usage: java -jar vkgl-vcf-converter.jar -v
+ -v,--version   Print version.
+```
+
+## Examples
+```
+java -jar vkgl-vcf-converter.jar -i vkgl_consensus.csv -o vkgl_consensus.vcf
+java -jar vkgl-vcf-converter.jar -v
+```
