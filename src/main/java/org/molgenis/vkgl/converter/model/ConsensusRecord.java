@@ -8,10 +8,8 @@ import static org.molgenis.vkgl.converter.model.Classification.PATHOGENIC;
 
 import com.opencsv.bean.CsvBindByName;
 import com.opencsv.bean.CsvCustomBindByName;
-import com.opencsv.exceptions.CsvDataTypeMismatchException;
 import java.util.EnumSet;
 import java.util.Set;
-import java.util.stream.Stream;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -85,7 +83,7 @@ public class ConsensusRecord {
 
   public Classification getClassification() {
     Classification classification;
-    switch(consensusClassification) {
+    switch (consensusClassification) {
       case LIKELY_BENIGN:
         classification = getClassificationSet().equals(EnumSet.of(BENIGN)) ? BENIGN : LIKELY_BENIGN;
         break;
@@ -93,7 +91,8 @@ public class ConsensusRecord {
         classification = Classification.VUS;
         break;
       case LIKELY_PATHOGENIC:
-        classification = getClassificationSet().equals(EnumSet.of(PATHOGENIC)) ? PATHOGENIC : LIKELY_PATHOGENIC;
+        classification =
+            getClassificationSet().equals(EnumSet.of(PATHOGENIC)) ? PATHOGENIC : LIKELY_PATHOGENIC;
         break;
       case CLASSIFIED_BY_ONE_LAB:
         classification = getClassificationSet().iterator().next();
@@ -102,37 +101,29 @@ public class ConsensusRecord {
         classification = null;
         break;
       default:
-        throw new IllegalArgumentException(format("invalid classification '%s'", consensusClassification));
+        throw new IllegalArgumentException(
+            format("invalid classification '%s'", consensusClassification));
     }
     return classification;
   }
 
-  public Set<Classification> getClassificationSet() {
+  private Set<Classification> getClassificationSet() {
     EnumSet<Classification> classifications = EnumSet.noneOf(Classification.class);
-    if(amcClassification != null) {
-      classifications.add(amcClassification);
-    }
-    if(erasmusClassification != null) {
-      classifications.add(erasmusClassification);
-    }
-    if(lumcClassification != null) {
-      classifications.add(lumcClassification);
-    }
-    if(nkiClassification != null) {
-      classifications.add(nkiClassification);
-    }
-    if(radboudMumcClassification != null) {
-      classifications.add(radboudMumcClassification);
-    }
-    if(umcgClassification != null) {
-      classifications.add(umcgClassification);
-    }
-    if(umcuClassification != null) {
-      classifications.add(umcuClassification);
-    }
-    if(vumcClassification != null) {
-      classifications.add(vumcClassification);
-    }
+    addClassification(classifications, amcClassification);
+    addClassification(classifications, erasmusClassification);
+    addClassification(classifications, lumcClassification);
+    addClassification(classifications, nkiClassification);
+    addClassification(classifications, radboudMumcClassification);
+    addClassification(classifications, umcgClassification);
+    addClassification(classifications, umcuClassification);
+    addClassification(classifications, vumcClassification);
     return classifications;
+  }
+
+  private static void addClassification(EnumSet<Classification> classifications,
+      Classification classification) {
+    if (classification != null) {
+      classifications.add(classification);
+    }
   }
 }

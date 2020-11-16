@@ -9,7 +9,7 @@
 ##INFO=<ID=VKGL_CL,Number=A,Type=String,Description="Clinical significance: LB (likely benign), VUS (unknown significance), LP (likely pathogenic)">
 ##INFO=<ID=VKGL_NR,Number=A,Type=Integer,Description="Number of supporting labs">
 ##INFO=<ID=VUMC,Number=A,Type=String,Description="VU University Medical Center clinical significance: B (benign), LB (likely benign), VUS (unknown significance), LP (likely pathogenic), P (pathogenic)">
-##VKGL_convertCommand=
+##VKGL_convertVersion=
 ##VKGL_convertCommand=
 ##contig=<ID=1,length=249250621,assembly=b37>
 ##contig=<ID=2,length=243199373,assembly=b37>
