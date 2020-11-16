@@ -1,36 +1,45 @@
 ##fileformat=VCFv4.2
-##INFO=<ID=MVL,Number=A,Type=String,Description="Clinical significance: LB (likely benign), VUS (unknown significance), LP (likely pathogenic)">
-##MVL_convertCommand=
-##MVL_convertCommand=
-##contig=<ID=1,length=249250621,assembly=human_g1k_v37_phiX.fasta>
-##contig=<ID=2,length=243199373,assembly=human_g1k_v37_phiX.fasta>
-##contig=<ID=3,length=198022430,assembly=human_g1k_v37_phiX.fasta>
-##contig=<ID=4,length=191154276,assembly=human_g1k_v37_phiX.fasta>
-##contig=<ID=5,length=180915260,assembly=human_g1k_v37_phiX.fasta>
-##contig=<ID=6,length=171115067,assembly=human_g1k_v37_phiX.fasta>
-##contig=<ID=7,length=159138663,assembly=human_g1k_v37_phiX.fasta>
-##contig=<ID=8,length=146364022,assembly=human_g1k_v37_phiX.fasta>
-##contig=<ID=9,length=141213431,assembly=human_g1k_v37_phiX.fasta>
-##contig=<ID=10,length=135534747,assembly=human_g1k_v37_phiX.fasta>
-##contig=<ID=11,length=135006516,assembly=human_g1k_v37_phiX.fasta>
-##contig=<ID=12,length=133851895,assembly=human_g1k_v37_phiX.fasta>
-##contig=<ID=13,length=115169878,assembly=human_g1k_v37_phiX.fasta>
-##contig=<ID=14,length=107349540,assembly=human_g1k_v37_phiX.fasta>
-##contig=<ID=15,length=102531392,assembly=human_g1k_v37_phiX.fasta>
-##contig=<ID=16,length=90354753,assembly=human_g1k_v37_phiX.fasta>
-##contig=<ID=17,length=81195210,assembly=human_g1k_v37_phiX.fasta>
-##contig=<ID=18,length=78077248,assembly=human_g1k_v37_phiX.fasta>
-##contig=<ID=19,length=59128983,assembly=human_g1k_v37_phiX.fasta>
-##contig=<ID=20,length=63025520,assembly=human_g1k_v37_phiX.fasta>
-##contig=<ID=21,length=48129895,assembly=human_g1k_v37_phiX.fasta>
-##contig=<ID=22,length=51304566,assembly=human_g1k_v37_phiX.fasta>
-##contig=<ID=X,length=155270560,assembly=human_g1k_v37_phiX.fasta>
-##contig=<ID=Y,length=59373566,assembly=human_g1k_v37_phiX.fasta>
-##contig=<ID=MT,length=16569,assembly=human_g1k_v37_phiX.fasta>
-##reference=file:///apps/data/1000G/phase1/human_g1k_v37_phiX.fasta
+##INFO=<ID=AMC,Number=A,Type=String,Description="Amsterdam UMC clinical significance: B (benign), LB (likely benign), VUS (unknown significance), LP (likely pathogenic), P (pathogenic)">
+##INFO=<ID=EMC,Number=A,Type=String,Description="Erasmus MC clinical significance: B (benign), LB (likely benign), VUS (unknown significance), LP (likely pathogenic), P (pathogenic)">
+##INFO=<ID=LUMC,Number=A,Type=String,Description="Leiden University Medical Center clinical significance: B (benign), LB (likely benign), VUS (unknown significance), LP (likely pathogenic), P (pathogenic)">
+##INFO=<ID=NKI,Number=A,Type=String,Description="Netherlands Cancer Institute clinical significance: B (benign), LB (likely benign), VUS (unknown significance), LP (likely pathogenic), P (pathogenic)">
+##INFO=<ID=RMMC,Number=A,Type=String,Description="Radboud UMC / Maastricht UMC+ clinical significance: B (benign), LB (likely benign), VUS (unknown significance), LP (likely pathogenic), P (pathogenic)">
+##INFO=<ID=UMCG,Number=A,Type=String,Description="University Medical Center Groningen clinical significance: B (benign), LB (likely benign), VUS (unknown significance), LP (likely pathogenic), P (pathogenic)">
+##INFO=<ID=UMCU,Number=A,Type=String,Description="Utrecht MC clinical significance: B (benign), LB (likely benign), VUS (unknown significance), LP (likely pathogenic), P (pathogenic)">
+##INFO=<ID=VKGL_CL,Number=A,Type=String,Description="Clinical significance: LB (likely benign), VUS (unknown significance), LP (likely pathogenic)">
+##INFO=<ID=VKGL_NR,Number=A,Type=Integer,Description="Number of supporting labs">
+##INFO=<ID=VUMC,Number=A,Type=String,Description="VU University Medical Center clinical significance: B (benign), LB (likely benign), VUS (unknown significance), LP (likely pathogenic), P (pathogenic)">
+##VKGL_convertCommand=
+##VKGL_convertCommand=
+##contig=<ID=1,length=249250621,assembly=b37>
+##contig=<ID=2,length=243199373,assembly=b37>
+##contig=<ID=3,length=198022430,assembly=b37>
+##contig=<ID=4,length=191154276,assembly=b37>
+##contig=<ID=5,length=180915260,assembly=b37>
+##contig=<ID=6,length=171115067,assembly=b37>
+##contig=<ID=7,length=159138663,assembly=b37>
+##contig=<ID=8,length=146364022,assembly=b37>
+##contig=<ID=9,length=141213431,assembly=b37>
+##contig=<ID=10,length=135534747,assembly=b37>
+##contig=<ID=11,length=135006516,assembly=b37>
+##contig=<ID=12,length=133851895,assembly=b37>
+##contig=<ID=13,length=115169878,assembly=b37>
+##contig=<ID=14,length=107349540,assembly=b37>
+##contig=<ID=15,length=102531392,assembly=b37>
+##contig=<ID=16,length=90354753,assembly=b37>
+##contig=<ID=17,length=81195210,assembly=b37>
+##contig=<ID=18,length=78077248,assembly=b37>
+##contig=<ID=19,length=59128983,assembly=b37>
+##contig=<ID=20,length=63025520,assembly=b37>
+##contig=<ID=21,length=48129895,assembly=b37>
+##contig=<ID=22,length=51304566,assembly=b37>
+##contig=<ID=X,length=155270560,assembly=b37>
+##contig=<ID=Y,length=59373566,assembly=b37>
+##contig=<ID=MT,length=16569,assembly=b37>
 #CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO
-1	9000000	.	A	G	.	.	MVL=LP
-1	9000001	.	A	G	.	.	MVL=VUS
-12	9250000	.	A	G	.	.	MVL=B
-12	9260000	.	A	G	.	.	MVL=P
-X	150000000	.	A	G	.	.	MVL=LB
+1	123	.	C	T	.	.	VUMC=B
+1	124	.	T	C	.	.	UMCG=P;UMCU=B
+1	125	.	C	G	.	.	NKI=VUS;RMMC=VUS;VKGL_CL=VUS;VKGL_NR=2
+1	126	.	G	C	.	.	LUMC=LB;NKI=B;VKGL_CL=LB;VKGL_NR=2
+1	127	.	G	A	.	.	EMC=LP;LUMC=P;VKGL_CL=LP;VKGL_NR=2
+1	128	.	A	G	.	.	AMC=P;EMC=LP;LUMC=P;VKGL_CL=LP;VKGL_NR=3
