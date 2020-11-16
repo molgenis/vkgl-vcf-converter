@@ -5,3 +5,7 @@
 ,"1",126,,"G","C",,,,,,,,,,,,,,,,"Likely benign","Benign",,,,,"(Likely) benign",2,,,
 ,"1",127,,"G","A",,,,,,,,,,,,,,,"Likely pathogenic","Pathogenic",,,,,,"(Likely) pathogenic",2,,,
 ,"1",128,,"A","G",,,,,,,,,,,,,,"Pathogenic","Likely pathogenic","Pathogenic",,,,,,"(Likely) pathogenic",3,,,
+,"1",129,,"G","C",,,,,,,,,,,,,,,,"Benign","Benign",,,,,"(Likely) benign",2,,,
+,"1",130,,"G","C",,,,,,,,,,,,,,,,"Likely benign","Likely benign",,,,,"(Likely) benign",2,,,
+,"1",131,,"G","C",,,,,,,,,,,,,,,,"Likely pathogenic","Likely pathogenic",,,,,"(Likely) pathogenic",2,,,
+,"1",132,,"G","C",,,,,,,,,,,,,,,,"Pathogenic","Pathogenic",,,,,"(Likely) pathogenic",2,,,

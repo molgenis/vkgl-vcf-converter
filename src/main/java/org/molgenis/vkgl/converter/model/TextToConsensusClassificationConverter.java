@@ -12,10 +12,6 @@ public class TextToConsensusClassificationConverter extends
   public Object convert(String value) throws CsvDataTypeMismatchException {
     ConsensusClassification consensusClassification;
     switch (value) {
-      case "Classified by one lab":
-      case "No consensus":
-        consensusClassification = null;
-        break;
       case "(Likely) benign":
         consensusClassification = ConsensusClassification.LIKELY_BENIGN;
         break;
@@ -24,6 +20,12 @@ public class TextToConsensusClassificationConverter extends
         break;
       case "(Likely) pathogenic":
         consensusClassification = ConsensusClassification.LIKELY_PATHOGENIC;
+        break;
+      case "Classified by one lab":
+        consensusClassification = ConsensusClassification.CLASSIFIED_BY_ONE_LAB;
+        break;
+      case "No consensus":
+        consensusClassification = ConsensusClassification.NO_CONSENSUS;
         break;
       default:
         throw new CsvDataTypeMismatchException(format("invalid classification '%s'", value));

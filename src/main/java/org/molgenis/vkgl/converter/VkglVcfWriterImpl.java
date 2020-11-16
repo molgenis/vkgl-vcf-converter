@@ -19,7 +19,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import org.molgenis.vkgl.AppSettings;
 import org.molgenis.vkgl.converter.model.Classification;
-import org.molgenis.vkgl.converter.model.ConsensusClassification;
 import org.molgenis.vkgl.converter.model.ConsensusRecord;
 
 public class VkglVcfWriterImpl implements VkglVcfWriter {
@@ -99,50 +98,50 @@ public class VkglVcfWriterImpl implements VkglVcfWriter {
         .start(start)
         .computeEndFromAlleles(alleles, start)
         .alleles(alleles);
-    ConsensusClassification consensusClassification = consensusRecord.getConsensusClassification();
-    if (consensusClassification != null) {
+    Classification vkglClassification = consensusRecord.getClassification();
+    if (vkglClassification != null) {
       variantContextBuilder
-          .attribute(INFO_VKGL_CL, List.of(consensusRecord.getConsensusClassification().getId()));
+          .attribute(INFO_VKGL_CL, List.of(vkglClassification.getId()));
       variantContextBuilder
           .attribute(INFO_VKGL_NR, List.of(consensusRecord.getMatches()));
     }
     Classification amcClassification = consensusRecord.getAmcClassification();
-    if(amcClassification != null) {
+    if (amcClassification != null) {
       variantContextBuilder
           .attribute(INFO_AMC, List.of(amcClassification.getId()));
     }
     Classification emcClassification = consensusRecord.getErasmusClassification();
-    if(emcClassification != null) {
+    if (emcClassification != null) {
       variantContextBuilder
           .attribute(INFO_EMC, List.of(emcClassification.getId()));
     }
     Classification lumcClassification = consensusRecord.getLumcClassification();
-    if(lumcClassification != null) {
+    if (lumcClassification != null) {
       variantContextBuilder
           .attribute(INFO_LUMC, List.of(lumcClassification.getId()));
     }
     Classification nkiClassification = consensusRecord.getNkiClassification();
-    if(nkiClassification != null) {
+    if (nkiClassification != null) {
       variantContextBuilder
           .attribute(INFO_NKI, List.of(nkiClassification.getId()));
     }
     Classification radboudMumcClassification = consensusRecord.getRadboudMumcClassification();
-    if(radboudMumcClassification != null) {
+    if (radboudMumcClassification != null) {
       variantContextBuilder
           .attribute(INFO_RMMC, List.of(radboudMumcClassification.getId()));
     }
     Classification umcgClassification = consensusRecord.getUmcgClassification();
-    if(umcgClassification != null) {
+    if (umcgClassification != null) {
       variantContextBuilder
           .attribute(INFO_UMCG, List.of(umcgClassification.getId()));
     }
     Classification umcuClassification = consensusRecord.getUmcuClassification();
-    if(umcuClassification != null) {
+    if (umcuClassification != null) {
       variantContextBuilder
           .attribute(INFO_UMCU, List.of(umcuClassification.getId()));
     }
     Classification vumcClassification = consensusRecord.getVumcClassification();
-    if(vumcClassification != null) {
+    if (vumcClassification != null) {
       variantContextBuilder
           .attribute(INFO_VUMC, List.of(vumcClassification.getId()));
     }
@@ -150,71 +149,71 @@ public class VkglVcfWriterImpl implements VkglVcfWriter {
   }
 
   private VCFHeader createVcfHeader() {
-    VCFHeader vcfHeader = new VCFHeader();
-    vcfHeader.setVCFHeaderVersion(VCFHeaderVersion.VCF4_2);
+    VCFHeader aVcfHeader = new VCFHeader();
+    aVcfHeader.setVCFHeaderVersion(VCFHeaderVersion.VCF4_2);
 
     int idx = 0;
-    vcfHeader.addMetaDataLine(new VCFContigHeaderLine(createContigMap("1", 249250621), idx++));
-    vcfHeader.addMetaDataLine(new VCFContigHeaderLine(createContigMap("2", 243199373), idx++));
-    vcfHeader.addMetaDataLine(new VCFContigHeaderLine(createContigMap("3", 198022430), idx++));
-    vcfHeader.addMetaDataLine(new VCFContigHeaderLine(createContigMap("4", 191154276), idx++));
-    vcfHeader.addMetaDataLine(new VCFContigHeaderLine(createContigMap("5", 180915260), idx++));
-    vcfHeader.addMetaDataLine(new VCFContigHeaderLine(createContigMap("6", 171115067), idx++));
-    vcfHeader.addMetaDataLine(new VCFContigHeaderLine(createContigMap("7", 159138663), idx++));
-    vcfHeader.addMetaDataLine(new VCFContigHeaderLine(createContigMap("8", 146364022), idx++));
-    vcfHeader.addMetaDataLine(new VCFContigHeaderLine(createContigMap("9", 141213431), idx++));
-    vcfHeader.addMetaDataLine(new VCFContigHeaderLine(createContigMap("10", 135534747), idx++));
-    vcfHeader.addMetaDataLine(new VCFContigHeaderLine(createContigMap("11", 135006516), idx++));
-    vcfHeader.addMetaDataLine(new VCFContigHeaderLine(createContigMap("12", 133851895), idx++));
-    vcfHeader.addMetaDataLine(new VCFContigHeaderLine(createContigMap("13", 115169878), idx++));
-    vcfHeader.addMetaDataLine(new VCFContigHeaderLine(createContigMap("14", 107349540), idx++));
-    vcfHeader.addMetaDataLine(new VCFContigHeaderLine(createContigMap("15", 102531392), idx++));
-    vcfHeader.addMetaDataLine(new VCFContigHeaderLine(createContigMap("16", 90354753), idx++));
-    vcfHeader.addMetaDataLine(new VCFContigHeaderLine(createContigMap("17", 81195210), idx++));
-    vcfHeader.addMetaDataLine(new VCFContigHeaderLine(createContigMap("18", 78077248), idx++));
-    vcfHeader.addMetaDataLine(new VCFContigHeaderLine(createContigMap("19", 59128983), idx++));
-    vcfHeader.addMetaDataLine(new VCFContigHeaderLine(createContigMap("20", 63025520), idx++));
-    vcfHeader.addMetaDataLine(new VCFContigHeaderLine(createContigMap("21", 48129895), idx++));
-    vcfHeader.addMetaDataLine(new VCFContigHeaderLine(createContigMap("22", 51304566), idx++));
-    vcfHeader.addMetaDataLine(new VCFContigHeaderLine(createContigMap("X", 155270560), idx++));
-    vcfHeader.addMetaDataLine(new VCFContigHeaderLine(createContigMap("Y", 59373566), idx++));
-    vcfHeader.addMetaDataLine(new VCFContigHeaderLine(createContigMap("MT", 16569), idx));
+    aVcfHeader.addMetaDataLine(new VCFContigHeaderLine(createContigMap("1", 249250621), idx++));
+    aVcfHeader.addMetaDataLine(new VCFContigHeaderLine(createContigMap("2", 243199373), idx++));
+    aVcfHeader.addMetaDataLine(new VCFContigHeaderLine(createContigMap("3", 198022430), idx++));
+    aVcfHeader.addMetaDataLine(new VCFContigHeaderLine(createContigMap("4", 191154276), idx++));
+    aVcfHeader.addMetaDataLine(new VCFContigHeaderLine(createContigMap("5", 180915260), idx++));
+    aVcfHeader.addMetaDataLine(new VCFContigHeaderLine(createContigMap("6", 171115067), idx++));
+    aVcfHeader.addMetaDataLine(new VCFContigHeaderLine(createContigMap("7", 159138663), idx++));
+    aVcfHeader.addMetaDataLine(new VCFContigHeaderLine(createContigMap("8", 146364022), idx++));
+    aVcfHeader.addMetaDataLine(new VCFContigHeaderLine(createContigMap("9", 141213431), idx++));
+    aVcfHeader.addMetaDataLine(new VCFContigHeaderLine(createContigMap("10", 135534747), idx++));
+    aVcfHeader.addMetaDataLine(new VCFContigHeaderLine(createContigMap("11", 135006516), idx++));
+    aVcfHeader.addMetaDataLine(new VCFContigHeaderLine(createContigMap("12", 133851895), idx++));
+    aVcfHeader.addMetaDataLine(new VCFContigHeaderLine(createContigMap("13", 115169878), idx++));
+    aVcfHeader.addMetaDataLine(new VCFContigHeaderLine(createContigMap("14", 107349540), idx++));
+    aVcfHeader.addMetaDataLine(new VCFContigHeaderLine(createContigMap("15", 102531392), idx++));
+    aVcfHeader.addMetaDataLine(new VCFContigHeaderLine(createContigMap("16", 90354753), idx++));
+    aVcfHeader.addMetaDataLine(new VCFContigHeaderLine(createContigMap("17", 81195210), idx++));
+    aVcfHeader.addMetaDataLine(new VCFContigHeaderLine(createContigMap("18", 78077248), idx++));
+    aVcfHeader.addMetaDataLine(new VCFContigHeaderLine(createContigMap("19", 59128983), idx++));
+    aVcfHeader.addMetaDataLine(new VCFContigHeaderLine(createContigMap("20", 63025520), idx++));
+    aVcfHeader.addMetaDataLine(new VCFContigHeaderLine(createContigMap("21", 48129895), idx++));
+    aVcfHeader.addMetaDataLine(new VCFContigHeaderLine(createContigMap("22", 51304566), idx++));
+    aVcfHeader.addMetaDataLine(new VCFContigHeaderLine(createContigMap("X", 155270560), idx++));
+    aVcfHeader.addMetaDataLine(new VCFContigHeaderLine(createContigMap("Y", 59373566), idx++));
+    aVcfHeader.addMetaDataLine(new VCFContigHeaderLine(createContigMap("MT", 16569), idx));
 
-    vcfHeader.addMetaDataLine(new VCFHeaderLine(HEADER_MVL_VERSION, appSettings.getVersion()));
-    vcfHeader.addMetaDataLine(
+    aVcfHeader.addMetaDataLine(new VCFHeaderLine(HEADER_MVL_VERSION, appSettings.getVersion()));
+    aVcfHeader.addMetaDataLine(
         new VCFHeaderLine(HEADER_MVL_ARGS, join(" ", appSettings.getArgs())));
 
-    vcfHeader.addMetaDataLine(
+    aVcfHeader.addMetaDataLine(
         new VCFInfoHeaderLine(
             INFO_VKGL_CL, VCFHeaderLineCount.A, VCFHeaderLineType.String, INFO_VKGL_CL_DESC));
-    vcfHeader.addMetaDataLine(
+    aVcfHeader.addMetaDataLine(
         new VCFInfoHeaderLine(
             INFO_VKGL_NR, VCFHeaderLineCount.A, VCFHeaderLineType.Integer, INFO_VKGL_NR_DESC));
-    vcfHeader.addMetaDataLine(
+    aVcfHeader.addMetaDataLine(
         new VCFInfoHeaderLine(
             INFO_AMC, VCFHeaderLineCount.A, VCFHeaderLineType.String, INFO_AMC_DESC));
-    vcfHeader.addMetaDataLine(
+    aVcfHeader.addMetaDataLine(
         new VCFInfoHeaderLine(
             INFO_EMC, VCFHeaderLineCount.A, VCFHeaderLineType.String, INFO_EMC_DESC));
-    vcfHeader.addMetaDataLine(
+    aVcfHeader.addMetaDataLine(
         new VCFInfoHeaderLine(
             INFO_LUMC, VCFHeaderLineCount.A, VCFHeaderLineType.String, INFO_LUMC_DESC));
-    vcfHeader.addMetaDataLine(
+    aVcfHeader.addMetaDataLine(
         new VCFInfoHeaderLine(
             INFO_NKI, VCFHeaderLineCount.A, VCFHeaderLineType.String, INFO_NKI_DESC));
-    vcfHeader.addMetaDataLine(
+    aVcfHeader.addMetaDataLine(
         new VCFInfoHeaderLine(
             INFO_RMMC, VCFHeaderLineCount.A, VCFHeaderLineType.String, INFO_RMMC_DESC));
-    vcfHeader.addMetaDataLine(
+    aVcfHeader.addMetaDataLine(
         new VCFInfoHeaderLine(
             INFO_UMCG, VCFHeaderLineCount.A, VCFHeaderLineType.String, INFO_UMCG_DESC));
-    vcfHeader.addMetaDataLine(
+    aVcfHeader.addMetaDataLine(
         new VCFInfoHeaderLine(
             INFO_UMCU, VCFHeaderLineCount.A, VCFHeaderLineType.String, INFO_UMCU_DESC));
-    vcfHeader.addMetaDataLine(
+    aVcfHeader.addMetaDataLine(
         new VCFInfoHeaderLine(
             INFO_VUMC, VCFHeaderLineCount.A, VCFHeaderLineType.String, INFO_VUMC_DESC));
-    return vcfHeader;
+    return aVcfHeader;
   }
 
   private LinkedHashMap<String, String> createContigMap(String chrom, int length) {

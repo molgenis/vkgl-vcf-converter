@@ -1,7 +1,17 @@
 package org.molgenis.vkgl.converter.model;
 
+import static java.lang.String.format;
+import static org.molgenis.vkgl.converter.model.Classification.BENIGN;
+import static org.molgenis.vkgl.converter.model.Classification.LIKELY_BENIGN;
+import static org.molgenis.vkgl.converter.model.Classification.LIKELY_PATHOGENIC;
+import static org.molgenis.vkgl.converter.model.Classification.PATHOGENIC;
+
 import com.opencsv.bean.CsvBindByName;
 import com.opencsv.bean.CsvCustomBindByName;
+import com.opencsv.exceptions.CsvDataTypeMismatchException;
+import java.util.EnumSet;
+import java.util.Set;
+import java.util.stream.Stream;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -72,4 +82,57 @@ public class ConsensusRecord {
 
   @CsvBindByName(column = "matches")
   Integer matches;
+
+  public Classification getClassification() {
+    Classification classification;
+    switch(consensusClassification) {
+      case LIKELY_BENIGN:
+        classification = getClassificationSet().equals(EnumSet.of(BENIGN)) ? BENIGN : LIKELY_BENIGN;
+        break;
+      case VUS:
+        classification = Classification.VUS;
+        break;
+      case LIKELY_PATHOGENIC:
+        classification = getClassificationSet().equals(EnumSet.of(PATHOGENIC)) ? PATHOGENIC : LIKELY_PATHOGENIC;
+        break;
+      case CLASSIFIED_BY_ONE_LAB:
+        classification = getClassificationSet().iterator().next();
+        break;
+      case NO_CONSENSUS:
+        classification = null;
+        break;
+      default:
+        throw new IllegalArgumentException(format("invalid classification '%s'", consensusClassification));
+    }
+    return classification;
+  }
+
+  public Set<Classification> getClassificationSet() {
+    EnumSet<Classification> classifications = EnumSet.noneOf(Classification.class);
+    if(amcClassification != null) {
+      classifications.add(amcClassification);
+    }
+    if(erasmusClassification != null) {
+      classifications.add(erasmusClassification);
+    }
+    if(lumcClassification != null) {
+      classifications.add(lumcClassification);
+    }
+    if(nkiClassification != null) {
+      classifications.add(nkiClassification);
+    }
+    if(radboudMumcClassification != null) {
+      classifications.add(radboudMumcClassification);
+    }
+    if(umcgClassification != null) {
+      classifications.add(umcgClassification);
+    }
+    if(umcuClassification != null) {
+      classifications.add(umcuClassification);
+    }
+    if(vumcClassification != null) {
+      classifications.add(vumcClassification);
+    }
+    return classifications;
+  }
 }
