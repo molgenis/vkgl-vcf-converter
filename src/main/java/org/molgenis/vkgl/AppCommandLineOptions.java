@@ -14,6 +14,8 @@ class AppCommandLineOptions {
   static final String OPT_INPUT_LONG = "input";
   static final String OPT_OUTPUT = "o";
   static final String OPT_OUTPUT_LONG = "output";
+  static final String OPT_PUBLIC = "p";
+  static final String OPT_PUBLIC_LONG = "public";
   static final String OPT_FORCE = "f";
   static final String OPT_FORCE_LONG = "force";
   static final String OPT_DEBUG = "d";
@@ -37,6 +39,11 @@ class AppCommandLineOptions {
             .hasArg(true)
             .longOpt(OPT_OUTPUT_LONG)
             .desc("Output VCF file (.vcf or .vcf.gz).")
+            .build());
+    appOptions.addOption(
+        Option.builder(OPT_PUBLIC)
+            .longOpt(OPT_PUBLIC_LONG)
+            .desc("Write VCF file containing public information only.")
             .build());
     appOptions.addOption(
         Option.builder(OPT_FORCE)

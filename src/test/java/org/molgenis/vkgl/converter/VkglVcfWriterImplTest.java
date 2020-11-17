@@ -52,19 +52,8 @@ class VkglVcfWriterImplTest {
 
   @Test
   void write() {
-
-    ConsensusRecord consensusRecord0 = ConsensusRecord.builder().chromosome("1").pos(123).ref("C")
-        .alt("T").amcClassification(
-            Classification.BENIGN).erasmusClassification(Classification.LIKELY_BENIGN)
-        .lumcClassification(Classification.VUS).nkiClassification(Classification.LIKELY_PATHOGENIC)
-        .radboudMumcClassification(Classification.PATHOGENIC)
-        .umcgClassification(Classification.BENIGN).umcuClassification(Classification.LIKELY_BENIGN)
-        .vumcClassification(Classification.VUS).consensusClassification(
-            ConsensusClassification.NO_CONSENSUS).build();
-    ConsensusRecord consensusRecord1 = ConsensusRecord.builder().chromosome("2").pos(234).ref("A")
-        .alt("G")
-        .amcClassification(Classification.BENIGN)
-        .consensusClassification(ConsensusClassification.LIKELY_BENIGN).matches(1).build();
+    ConsensusRecord consensusRecord0 = createConsensusRecord0();
+    ConsensusRecord consensusRecord1 = createConsensusRecord1();
     List<ConsensusRecord> consensusRecords = List.of(consensusRecord0, consensusRecord1);
 
     vkglVcfWriter.write(consensusRecords);
@@ -113,4 +102,56 @@ class VkglVcfWriterImplTest {
               () -> assertEquals(List.of(1), variantContext1.getAttribute("VKGL_NR")));
         });
   }
+
+  private ConsensusRecord createConsensusRecord1() {
+    return ConsensusRecord.builder().chromosome("2").pos(234).ref("A")
+        .alt("G")
+        .amcClassification(Classification.BENIGN)
+        .consensusClassification(ConsensusClassification.LIKELY_BENIGN).matches(1).build();
+  }
+
+  @Test
+  void writePublic() {
+    vkglVcfWriter.setWritePublic(true);
+
+    ConsensusRecord consensusRecord0 = createConsensusRecord0();
+    ConsensusRecord consensusRecord1 = createConsensusRecord1();
+    List<ConsensusRecord> consensusRecords = List.of(consensusRecord0, consensusRecord1);
+
+    vkglVcfWriter.write(consensusRecords);
+
+    ArgumentCaptor<VariantContext> variantContextCaptor =
+        ArgumentCaptor.forClass(VariantContext.class);
+    verify(vcfWriter, times(1)).add(variantContextCaptor.capture());
+
+    List<VariantContext> variantContexts = variantContextCaptor.getAllValues();
+    assertAll(
+        () -> {
+          VariantContext variantContext1 = variantContexts.get(0);
+          assertAll(
+              () -> assertEquals("2", variantContext1.getContig()),
+              () -> assertEquals(234, variantContext1.getStart()),
+              () -> assertEquals("A", variantContext1.getReference().getBaseString()),
+              () ->
+                  assertEquals(
+                      List.of("G"),
+                      variantContext1.getAlternateAlleles().stream()
+                          .map(Allele::getBaseString)
+                          .collect(toList())),
+              () -> assertEquals(List.of("B"), variantContext1.getAttribute("VKGL_CL")),
+              () -> assertEquals(List.of(1), variantContext1.getAttribute("VKGL_NR")));
+        });
+  }
+
+  private ConsensusRecord createConsensusRecord0() {
+    return ConsensusRecord.builder().chromosome("1").pos(123).ref("C")
+        .alt("T").amcClassification(
+            Classification.BENIGN).erasmusClassification(Classification.LIKELY_BENIGN)
+        .lumcClassification(Classification.VUS).nkiClassification(Classification.LIKELY_PATHOGENIC)
+        .radboudMumcClassification(Classification.PATHOGENIC)
+        .umcgClassification(Classification.BENIGN).umcuClassification(Classification.LIKELY_BENIGN)
+        .vumcClassification(Classification.VUS).consensusClassification(
+            ConsensusClassification.NO_CONSENSUS).build();
+  }
+
 }

@@ -4,6 +4,7 @@ import static java.util.Arrays.asList;
 import static org.molgenis.vkgl.AppCommandLineOptions.OPT_FORCE;
 import static org.molgenis.vkgl.AppCommandLineOptions.OPT_INPUT;
 import static org.molgenis.vkgl.AppCommandLineOptions.OPT_OUTPUT;
+import static org.molgenis.vkgl.AppCommandLineOptions.OPT_PUBLIC;
 
 import java.nio.file.Path;
 import org.apache.commons.cli.CommandLine;
@@ -46,10 +47,12 @@ class AppCommandLineToSettingsMapper {
     }
 
     boolean overwriteOutput = commandLine.hasOption(OPT_FORCE);
+    boolean writePublic = commandLine.hasOption(OPT_PUBLIC);
 
     return WriterSettings.builder()
         .outputVcfPath(outputPath)
         .overwriteOutput(overwriteOutput)
+        .writePublic(writePublic)
         .build();
   }
 }

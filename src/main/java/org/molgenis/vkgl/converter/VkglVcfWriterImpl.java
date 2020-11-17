@@ -54,11 +54,18 @@ public class VkglVcfWriterImpl implements VkglVcfWriter {
 
   private final VariantContextWriter vcfWriter;
   private final AppSettings appSettings;
+  private boolean isWritePublic;
   private final VCFHeader vcfHeader;
 
   public VkglVcfWriterImpl(VariantContextWriter vcfWriter, AppSettings appSettings) {
+    this(vcfWriter, appSettings, false);
+  }
+
+  public VkglVcfWriterImpl(VariantContextWriter vcfWriter, AppSettings appSettings,
+      boolean isWritePublic) {
     this.vcfWriter = requireNonNull(vcfWriter);
     this.appSettings = requireNonNull(appSettings);
+    this.isWritePublic = isWritePublic;
     this.vcfHeader = createVcfHeader();
   }
 
@@ -79,11 +86,15 @@ public class VkglVcfWriterImpl implements VkglVcfWriter {
   }
 
   private List<VariantContext> convert(List<ConsensusRecord> consensusRecords) {
-    return consensusRecords.stream().map(this::convert).collect(toList());
+    return consensusRecords.stream().filter(this::filter).map(this::convert).collect(toList());
   }
 
   private void sort(List<VariantContext> variantContexts) {
     variantContexts.sort(vcfHeader.getVCFRecordComparator());
+  }
+
+  private boolean filter(ConsensusRecord consensusRecord) {
+    return !isWritePublic || consensusRecord.getClassification() != null;
   }
 
   private VariantContext convert(ConsensusRecord consensusRecord) {
@@ -105,45 +116,47 @@ public class VkglVcfWriterImpl implements VkglVcfWriter {
       variantContextBuilder
           .attribute(INFO_VKGL_NR, List.of(consensusRecord.getMatches()));
     }
-    Classification amcClassification = consensusRecord.getAmcClassification();
-    if (amcClassification != null) {
-      variantContextBuilder
-          .attribute(INFO_AMC, List.of(amcClassification.getId()));
-    }
-    Classification emcClassification = consensusRecord.getErasmusClassification();
-    if (emcClassification != null) {
-      variantContextBuilder
-          .attribute(INFO_EMC, List.of(emcClassification.getId()));
-    }
-    Classification lumcClassification = consensusRecord.getLumcClassification();
-    if (lumcClassification != null) {
-      variantContextBuilder
-          .attribute(INFO_LUMC, List.of(lumcClassification.getId()));
-    }
-    Classification nkiClassification = consensusRecord.getNkiClassification();
-    if (nkiClassification != null) {
-      variantContextBuilder
-          .attribute(INFO_NKI, List.of(nkiClassification.getId()));
-    }
-    Classification radboudMumcClassification = consensusRecord.getRadboudMumcClassification();
-    if (radboudMumcClassification != null) {
-      variantContextBuilder
-          .attribute(INFO_RMMC, List.of(radboudMumcClassification.getId()));
-    }
-    Classification umcgClassification = consensusRecord.getUmcgClassification();
-    if (umcgClassification != null) {
-      variantContextBuilder
-          .attribute(INFO_UMCG, List.of(umcgClassification.getId()));
-    }
-    Classification umcuClassification = consensusRecord.getUmcuClassification();
-    if (umcuClassification != null) {
-      variantContextBuilder
-          .attribute(INFO_UMCU, List.of(umcuClassification.getId()));
-    }
-    Classification vumcClassification = consensusRecord.getVumcClassification();
-    if (vumcClassification != null) {
-      variantContextBuilder
-          .attribute(INFO_VUMC, List.of(vumcClassification.getId()));
+    if (!isWritePublic) {
+      Classification amcClassification = consensusRecord.getAmcClassification();
+      if (amcClassification != null) {
+        variantContextBuilder
+            .attribute(INFO_AMC, List.of(amcClassification.getId()));
+      }
+      Classification emcClassification = consensusRecord.getErasmusClassification();
+      if (emcClassification != null) {
+        variantContextBuilder
+            .attribute(INFO_EMC, List.of(emcClassification.getId()));
+      }
+      Classification lumcClassification = consensusRecord.getLumcClassification();
+      if (lumcClassification != null) {
+        variantContextBuilder
+            .attribute(INFO_LUMC, List.of(lumcClassification.getId()));
+      }
+      Classification nkiClassification = consensusRecord.getNkiClassification();
+      if (nkiClassification != null) {
+        variantContextBuilder
+            .attribute(INFO_NKI, List.of(nkiClassification.getId()));
+      }
+      Classification radboudMumcClassification = consensusRecord.getRadboudMumcClassification();
+      if (radboudMumcClassification != null) {
+        variantContextBuilder
+            .attribute(INFO_RMMC, List.of(radboudMumcClassification.getId()));
+      }
+      Classification umcgClassification = consensusRecord.getUmcgClassification();
+      if (umcgClassification != null) {
+        variantContextBuilder
+            .attribute(INFO_UMCG, List.of(umcgClassification.getId()));
+      }
+      Classification umcuClassification = consensusRecord.getUmcuClassification();
+      if (umcuClassification != null) {
+        variantContextBuilder
+            .attribute(INFO_UMCU, List.of(umcuClassification.getId()));
+      }
+      Classification vumcClassification = consensusRecord.getVumcClassification();
+      if (vumcClassification != null) {
+        variantContextBuilder
+            .attribute(INFO_VUMC, List.of(vumcClassification.getId()));
+      }
     }
     return variantContextBuilder.make();
   }
@@ -189,30 +202,32 @@ public class VkglVcfWriterImpl implements VkglVcfWriter {
     aVcfHeader.addMetaDataLine(
         new VCFInfoHeaderLine(
             INFO_VKGL_NR, VCFHeaderLineCount.A, VCFHeaderLineType.Integer, INFO_VKGL_NR_DESC));
-    aVcfHeader.addMetaDataLine(
-        new VCFInfoHeaderLine(
-            INFO_AMC, VCFHeaderLineCount.A, VCFHeaderLineType.String, INFO_AMC_DESC));
-    aVcfHeader.addMetaDataLine(
-        new VCFInfoHeaderLine(
-            INFO_EMC, VCFHeaderLineCount.A, VCFHeaderLineType.String, INFO_EMC_DESC));
-    aVcfHeader.addMetaDataLine(
-        new VCFInfoHeaderLine(
-            INFO_LUMC, VCFHeaderLineCount.A, VCFHeaderLineType.String, INFO_LUMC_DESC));
-    aVcfHeader.addMetaDataLine(
-        new VCFInfoHeaderLine(
-            INFO_NKI, VCFHeaderLineCount.A, VCFHeaderLineType.String, INFO_NKI_DESC));
-    aVcfHeader.addMetaDataLine(
-        new VCFInfoHeaderLine(
-            INFO_RMMC, VCFHeaderLineCount.A, VCFHeaderLineType.String, INFO_RMMC_DESC));
-    aVcfHeader.addMetaDataLine(
-        new VCFInfoHeaderLine(
-            INFO_UMCG, VCFHeaderLineCount.A, VCFHeaderLineType.String, INFO_UMCG_DESC));
-    aVcfHeader.addMetaDataLine(
-        new VCFInfoHeaderLine(
-            INFO_UMCU, VCFHeaderLineCount.A, VCFHeaderLineType.String, INFO_UMCU_DESC));
-    aVcfHeader.addMetaDataLine(
-        new VCFInfoHeaderLine(
-            INFO_VUMC, VCFHeaderLineCount.A, VCFHeaderLineType.String, INFO_VUMC_DESC));
+    if (!isWritePublic) {
+      aVcfHeader.addMetaDataLine(
+          new VCFInfoHeaderLine(
+              INFO_AMC, VCFHeaderLineCount.A, VCFHeaderLineType.String, INFO_AMC_DESC));
+      aVcfHeader.addMetaDataLine(
+          new VCFInfoHeaderLine(
+              INFO_EMC, VCFHeaderLineCount.A, VCFHeaderLineType.String, INFO_EMC_DESC));
+      aVcfHeader.addMetaDataLine(
+          new VCFInfoHeaderLine(
+              INFO_LUMC, VCFHeaderLineCount.A, VCFHeaderLineType.String, INFO_LUMC_DESC));
+      aVcfHeader.addMetaDataLine(
+          new VCFInfoHeaderLine(
+              INFO_NKI, VCFHeaderLineCount.A, VCFHeaderLineType.String, INFO_NKI_DESC));
+      aVcfHeader.addMetaDataLine(
+          new VCFInfoHeaderLine(
+              INFO_RMMC, VCFHeaderLineCount.A, VCFHeaderLineType.String, INFO_RMMC_DESC));
+      aVcfHeader.addMetaDataLine(
+          new VCFInfoHeaderLine(
+              INFO_UMCG, VCFHeaderLineCount.A, VCFHeaderLineType.String, INFO_UMCG_DESC));
+      aVcfHeader.addMetaDataLine(
+          new VCFInfoHeaderLine(
+              INFO_UMCU, VCFHeaderLineCount.A, VCFHeaderLineType.String, INFO_UMCU_DESC));
+      aVcfHeader.addMetaDataLine(
+          new VCFInfoHeaderLine(
+              INFO_VUMC, VCFHeaderLineCount.A, VCFHeaderLineType.String, INFO_VUMC_DESC));
+    }
     return aVcfHeader;
   }
 
@@ -229,4 +244,10 @@ public class VkglVcfWriterImpl implements VkglVcfWriter {
     vcfWriter.close();
   }
 
+  /**
+   * Testability
+   */
+  void setWritePublic(boolean writePublic) {
+    isWritePublic = writePublic;
+  }
 }
