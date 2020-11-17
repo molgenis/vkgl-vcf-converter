@@ -54,11 +54,18 @@ public class VkglVcfWriterImpl implements VkglVcfWriter {
 
   private final VariantContextWriter vcfWriter;
   private final AppSettings appSettings;
+  private boolean isWritePublic;
   private final VCFHeader vcfHeader;
 
   public VkglVcfWriterImpl(VariantContextWriter vcfWriter, AppSettings appSettings) {
+    this(vcfWriter, appSettings, false);
+  }
+
+  public VkglVcfWriterImpl(VariantContextWriter vcfWriter, AppSettings appSettings,
+      boolean isWritePublic) {
     this.vcfWriter = requireNonNull(vcfWriter);
     this.appSettings = requireNonNull(appSettings);
+    this.isWritePublic = isWritePublic;
     this.vcfHeader = createVcfHeader();
   }
 
@@ -79,11 +86,15 @@ public class VkglVcfWriterImpl implements VkglVcfWriter {
   }
 
   private List<VariantContext> convert(List<ConsensusRecord> consensusRecords) {
-    return consensusRecords.stream().map(this::convert).collect(toList());
+    return consensusRecords.stream().filter(this::filter).map(this::convert).collect(toList());
   }
 
   private void sort(List<VariantContext> variantContexts) {
     variantContexts.sort(vcfHeader.getVCFRecordComparator());
+  }
+
+  private boolean filter(ConsensusRecord consensusRecord) {
+    return !isWritePublic || consensusRecord.getClassification() != null;
   }
 
   private VariantContext convert(ConsensusRecord consensusRecord) {
@@ -105,6 +116,14 @@ public class VkglVcfWriterImpl implements VkglVcfWriter {
       variantContextBuilder
           .attribute(INFO_VKGL_NR, List.of(consensusRecord.getMatches()));
     }
+    if (!isWritePublic) {
+      writeLabClassifications(consensusRecord, variantContextBuilder);
+    }
+    return variantContextBuilder.make();
+  }
+
+  private void writeLabClassifications(ConsensusRecord consensusRecord,
+      VariantContextBuilder variantContextBuilder) {
     Classification amcClassification = consensusRecord.getAmcClassification();
     if (amcClassification != null) {
       variantContextBuilder
@@ -145,7 +164,6 @@ public class VkglVcfWriterImpl implements VkglVcfWriter {
       variantContextBuilder
           .attribute(INFO_VUMC, List.of(vumcClassification.getId()));
     }
-    return variantContextBuilder.make();
   }
 
   private VCFHeader createVcfHeader() {
@@ -189,6 +207,13 @@ public class VkglVcfWriterImpl implements VkglVcfWriter {
     aVcfHeader.addMetaDataLine(
         new VCFInfoHeaderLine(
             INFO_VKGL_NR, VCFHeaderLineCount.A, VCFHeaderLineType.Integer, INFO_VKGL_NR_DESC));
+    if (!isWritePublic) {
+      writeLabMetaDataLines(aVcfHeader);
+    }
+    return aVcfHeader;
+  }
+
+  private void writeLabMetaDataLines(VCFHeader aVcfHeader) {
     aVcfHeader.addMetaDataLine(
         new VCFInfoHeaderLine(
             INFO_AMC, VCFHeaderLineCount.A, VCFHeaderLineType.String, INFO_AMC_DESC));
@@ -213,7 +238,6 @@ public class VkglVcfWriterImpl implements VkglVcfWriter {
     aVcfHeader.addMetaDataLine(
         new VCFInfoHeaderLine(
             INFO_VUMC, VCFHeaderLineCount.A, VCFHeaderLineType.String, INFO_VUMC_DESC));
-    return aVcfHeader;
   }
 
   private LinkedHashMap<String, String> createContigMap(String chrom, int length) {
@@ -229,4 +253,10 @@ public class VkglVcfWriterImpl implements VkglVcfWriter {
     vcfWriter.close();
   }
 
+  /**
+   * Testability
+   */
+  void setWritePublic(boolean writePublic) {
+    isWritePublic = writePublic;
+  }
 }

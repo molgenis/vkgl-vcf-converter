@@ -40,4 +40,24 @@ class AppIT {
 
     assertEquals(expectedOutputVcf, outputVcf);
   }
+
+  @Test
+  void testPublic() throws IOException {
+    String inputFile = ResourceUtils.getFile("classpath:vkgl_consensus.csv").toString();
+    String outputFile = sharedTempDir.resolve("vkgl_consensus_public.vcf").toString();
+
+    String[] args = {"-i", inputFile, "-o", outputFile, "-p"};
+    SpringApplication.run(App.class, args);
+
+    String outputVcf = Files.readString(Path.of(outputFile));
+
+    // output differs every run (different tmp dir)
+    outputVcf = HEADER_VERSION_PATTERN.matcher(outputVcf).replaceAll("##VKGL_convertVersion=");
+    outputVcf = HEADER_COMMAND_PATTERN.matcher(outputVcf).replaceAll("##VKGL_convertCommand=");
+
+    Path expectedOutputFile = ResourceUtils.getFile("classpath:vkgl_consensus_public.vcf").toPath();
+    String expectedOutputVcf = Files.readString(expectedOutputFile).replaceAll("\\R", "\n");
+
+    assertEquals(expectedOutputVcf, outputVcf);
+  }
 }

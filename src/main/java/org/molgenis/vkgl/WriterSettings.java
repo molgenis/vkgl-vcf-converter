@@ -9,4 +9,6 @@ import lombok.Value;
 public class WriterSettings {
   Path outputVcfPath;
   boolean overwriteOutput;
+
+  boolean writePublic;
 }

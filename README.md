@@ -11,6 +11,7 @@ Command-line application to convert a [VKGL consensus .csv file](https://github.
 usage: java -jar vkgl-vcf-converter.jar -i <arg> [-o <arg>] [-f] [-d]
  -i,--input <arg>    Input VKGL consensus file (.csv).
  -o,--output <arg>   Output VCF file (.vcf or .vcf.gz).
+ -p,--public         Write VCF file containing public information only.
  -f,--force          Override the output file if it already exists.
  -d,--debug          Enable debug mode (additional logging).
 

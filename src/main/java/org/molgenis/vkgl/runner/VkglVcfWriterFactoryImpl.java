@@ -19,8 +19,10 @@ public class VkglVcfWriterFactoryImpl implements VkglVcfWriterFactory {
 
   @Override
   public VkglVcfWriter create(Settings settings) {
-    VariantContextWriter vcfWriter = createVcfWriter(settings.getWriterSettings());
-    return new VkglVcfWriterImpl(vcfWriter, settings.getAppSettings());
+    WriterSettings writerSettings = settings.getWriterSettings();
+    VariantContextWriter vcfWriter = createVcfWriter(writerSettings);
+    return new VkglVcfWriterImpl(vcfWriter, settings.getAppSettings(),
+        writerSettings.isWritePublic());
   }
 
   private static VariantContextWriter createVcfWriter(WriterSettings settings) {
