@@ -3,6 +3,8 @@
 # VKGL consensus to VCF converter
 Command-line application to convert a [VKGL consensus .csv file](https://github.com/molgenis/molgenis-py-consensus) to a VCF file.
 
+Note that the converter requires the 'full' VKGL consensus .csv file and doesn't work for 'public' VKGL consensus .csv files.
+
 ## Requirements
 - Java 11
 
